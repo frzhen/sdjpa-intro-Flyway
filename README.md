@@ -4,5 +4,4 @@
 * Active profiles: local,clean
 * Version: MySQL:8.0.27
 * Instances: 
-  * External port for dockered MySQL: 3307
-* Profile: local,clean,remote
+  * External port for docker MySQL: 3307

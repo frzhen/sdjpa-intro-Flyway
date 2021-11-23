@@ -24,7 +24,10 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String isbn, String publisher, Long authorId) {
+    public Book(String title,
+                String isbn,
+                String publisher,
+                Long authorId) {
         this.title = title;
         this.isbn = isbn;
         this.publisher = publisher;

@@ -1,5 +1,6 @@
 package guru.ysy.sdjpaintro;
 
+import guru.ysy.sdjpaintro.repositories.AuthorRepository;
 import guru.ysy.sdjpaintro.repositories.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,14 @@ public class MySQLIntegrationTest {
     @Autowired
     BookRepository bookRepository;
 
+    @Autowired
+    AuthorRepository authorRepository;
+
     @Test
     void testMySQL() {
-        long countBefore = bookRepository.count();
-        assertThat(countBefore).isEqualTo(2);
+        long count1 = bookRepository.count();
+        assertThat(count1).isEqualTo(2);
+        long count2 = authorRepository.count();
+        assertThat(count2).isEqualTo(2);
     }
 }

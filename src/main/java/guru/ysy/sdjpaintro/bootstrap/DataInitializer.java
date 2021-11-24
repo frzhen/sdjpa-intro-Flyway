@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * Created by zhenrui on 2021/11/15 21:29
  */
-@Profile({"local","remote","default"})
+@Profile({"local","default"})
 @Component
 public class DataInitializer implements CommandLineRunner {
 

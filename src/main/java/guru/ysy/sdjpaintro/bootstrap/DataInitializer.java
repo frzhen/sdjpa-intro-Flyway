@@ -1,8 +1,10 @@
 package guru.ysy.sdjpaintro.bootstrap;
 
 import guru.ysy.sdjpaintro.domain.Author;
+import guru.ysy.sdjpaintro.domain.AuthorUuid;
 import guru.ysy.sdjpaintro.domain.Book;
 import guru.ysy.sdjpaintro.repositories.AuthorRepository;
+import guru.ysy.sdjpaintro.repositories.AuthorUuidRepository;
 import guru.ysy.sdjpaintro.repositories.BookRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -17,10 +19,12 @@ public class DataInitializer implements CommandLineRunner {
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
+    private final AuthorUuidRepository authorUuidRepository;
 
-    public DataInitializer(BookRepository bookRepository, AuthorRepository authorRepository) {
+    public DataInitializer(BookRepository bookRepository, AuthorRepository authorRepository, AuthorUuidRepository authorUuidRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
+        this.authorUuidRepository = authorUuidRepository;
     }
 
     @Override
@@ -60,6 +64,17 @@ public class DataInitializer implements CommandLineRunner {
             authorRepository.findAll().forEach(author -> {
                 System.out.println("Author Id: " + author.getId());
                 System.out.println("Author Name: " + author.getFirstName() + " " + author.getLastName());
+            });
+
+            System.out.println("******** author uuid initializing **********");
+            authorUuidRepository.deleteAll();
+            AuthorUuid authorUuid1 = new AuthorUuid();
+            authorUuid1.setFirstName("Joe");
+            authorUuid1.setLastName("Black");
+            authorUuidRepository.save(authorUuid1);
+            authorUuidRepository.findAll().forEach(authorUuid -> {
+                System.out.println("Author UUID: " + authorUuid.getId());
+                System.out.println("Author Name: " + authorUuid.getFirstName() + " " + authorUuid.getLastName());
             });
 
         } catch (NumberFormatException e) {

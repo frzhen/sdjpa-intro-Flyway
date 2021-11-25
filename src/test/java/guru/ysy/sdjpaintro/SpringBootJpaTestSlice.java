@@ -1,6 +1,8 @@
 package guru.ysy.sdjpaintro;
 
+import guru.ysy.sdjpaintro.domain.Author;
 import guru.ysy.sdjpaintro.domain.Book;
+import guru.ysy.sdjpaintro.repositories.AuthorRepository;
 import guru.ysy.sdjpaintro.repositories.BookRepository;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -24,27 +26,38 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class SpringBootJpaTestSlice {
 
     @Autowired
+    AuthorRepository authorRepository;
+
+    @Autowired
     BookRepository bookRepository;
+
 
 //    @Rollback(value = false)//stop rollback so that the state can be passed on to the next test
     @Commit//This is cleaner than @Rollback
     @Order(1)
     @Test
     void testJpaTestSplice() {
-        long countBefore = bookRepository.count();
-        assertThat(countBefore).isEqualTo(2);
+        long countAuthorBefore = authorRepository.count();
+        assertThat(countAuthorBefore).isEqualTo(2);
+        long countBookBefore = bookRepository.count();
+        assertThat(countBookBefore).isEqualTo(2);
 
-        bookRepository.save(new Book("My Book", "1234567", "Self", null));
+        Author newAuthor = authorRepository.save(new Author("Noah", "Gordon"));
+        bookRepository.save(new Book("The Physician", newAuthor.getId(), "Packt", "789"));
 
-        long countAfter = bookRepository.count();
+        long countAuthorAfter = authorRepository.count();
+        long countBookAfter = bookRepository.count();
 
-        assertThat(countBefore).isLessThan(countAfter);
+        assertThat(countAuthorBefore).isLessThan(countAuthorAfter);
+        assertThat(countBookBefore).isLessThan(countBookAfter);
     }
 
     @Order(2)
     @Test
     void testJpaTestSpliceTransaction() {
-        long countBefore = bookRepository.count();
-        assertThat(countBefore).isEqualTo(3);
+        long countAuthor = authorRepository.count();
+        long countBook = bookRepository.count();
+        assertThat(countAuthor).isEqualTo(3);
+        assertThat(countBook).isEqualTo(3);
     }
 }

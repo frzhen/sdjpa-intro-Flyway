@@ -26,32 +26,9 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         try {
-            System.out.println("********** Books initializing ************");
-            bookRepository.deleteAll();
-
-            Book bookDDD = new Book(
-                    "Domain Driven Design",
-                    "123",
-                    "RandomHouse",
-                    null);
-            bookRepository.save(bookDDD);
-
-            Book bookSIA = new Book(
-                    "Spring In Action",
-                    "234",
-                    "Orielly",
-                    null);
-            bookRepository.save(bookSIA);
-
-            bookRepository.findAll().forEach(book -> {
-                System.out.println("Book Id: " + book.getId());
-                System.out.println("Book Title: " + book.getTitle());
-            });
-
             System.out.println("******** author initializing **********");
             authorRepository.deleteAll();
             Author author1 = new Author("Eric","Evans");
-            System.out.println("Id " + author1.getId());
             authorRepository.save(author1);
 
             Author author2 = new Author("Craig","Walls");
@@ -61,6 +38,34 @@ public class DataInitializer implements CommandLineRunner {
                 System.out.println("Author Id: " + author.getId());
                 System.out.println("Author Name: " + author.getFirstName() + " " + author.getLastName());
             });
+
+            System.out.println("********** Books initializing ************");
+            bookRepository.deleteAll();
+
+            Book bookDDD = new Book(
+                    "Domain Driven Design",
+                    author1.getId(),
+                    "RandomHouse",
+                    "123");
+            bookRepository.save(bookDDD);
+
+            Book bookSIA = new Book(
+                    "Spring In Action",
+                    author2.getId(),
+                    "O'Reilly",
+                    "456");
+            bookRepository.save(bookSIA);
+
+            bookRepository.findAll().forEach(book -> {
+                System.out.println("Book Id: " + book.getId());
+                System.out.println("Book Title: " + book.getTitle());
+                System.out.println("Author: " + authorRepository.getById(book.getId()).getFirstName() + " " + authorRepository.getById(book.getId()).getLastName());
+                System.out.println("Publisher: " + book.getPublisher());
+                System.out.println("ISBN:" + book.getIsbn());
+
+            });
+
+
 
         } catch (NumberFormatException e) {
             e.printStackTrace();

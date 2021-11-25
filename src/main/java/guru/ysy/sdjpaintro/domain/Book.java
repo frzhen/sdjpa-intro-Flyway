@@ -19,36 +19,18 @@ public class Book {
     private UUID id;
 
     private String title;
-    private String isbn;
-    private String publisher;
     private UUID authorId;
+    private String publisher;
+    private String isbn;
 
     public Book() {
     }
 
-    public Book(String title,
-                String isbn,
-                String publisher,
-                UUID authorId) {
+    public Book(String title, UUID authorId, String publisher, String isbn) {
         this.title = title;
-        this.isbn = isbn;
-        this.publisher = publisher;
         this.authorId = authorId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Book book = (Book) o;
-
-        return Objects.equals(id, book.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        this.publisher = publisher;
+        this.isbn = isbn;
     }
 
     public UUID getId() {
@@ -67,12 +49,12 @@ public class Book {
         this.title = title;
     }
 
-    public String getIsbn() {
-        return isbn;
+    public UUID getAuthorId() {
+        return authorId;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void setAuthorId(UUID authorId) {
+        this.authorId = authorId;
     }
 
     public String getPublisher() {
@@ -81,5 +63,28 @@ public class Book {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Book book = (Book) o;
+
+        return id != null ? id.equals(book.id) : book.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }

@@ -8,5 +8,5 @@ import java.util.UUID;
 /**
  * Created by zhenrui on 2021/11/24 17:06
  */
-public interface AuthorRepository extends JpaRepository<Author, UUID> {
+public interface AuthorRepository extends JpaRepository<Author, Long> {
 }

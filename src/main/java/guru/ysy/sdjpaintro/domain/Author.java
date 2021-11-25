@@ -3,6 +3,7 @@ package guru.ysy.sdjpaintro.domain;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -12,13 +13,15 @@ import java.util.UUID;
 public class Author {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name="uuid2", strategy = "uuid2")
-    @Column(columnDefinition = "BINARY(16)", updatable = false,nullable = false)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String firstName;
     private String lastName;
+
+    @OneToMany
+    @JoinColumn( name="book_id", referencedColumnName = "id")
+    private List<Book> books;
 
     public Author() {
     }
@@ -29,11 +32,11 @@ public class Author {
         this.lastName = lastName;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -53,6 +56,9 @@ public class Author {
         this.lastName = lastName;
     }
 
+    public List<Book> getAllBooks(){
+        return books;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

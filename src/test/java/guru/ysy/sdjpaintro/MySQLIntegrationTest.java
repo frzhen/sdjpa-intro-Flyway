@@ -38,7 +38,7 @@ public class MySQLIntegrationTest {
         assertThat(fetchedBook).isNotNull();
     }
     @Test
-    void testAuthorUuid() {
+    void testAuthorId() {
         Author author = authorRepository.save(new Author());
         assertThat(author).isNotNull();
         assertThat(author.getId()).isNotNull();

@@ -3,7 +3,6 @@ package guru.ysy.sdjpaintro.domain;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -19,16 +18,19 @@ public class Book {
     private UUID id;
 
     private String title;
-    private UUID authorId;
+
+    @ManyToOne
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
+    private Author author;
     private String publisher;
     private String isbn;
 
     public Book() {
     }
 
-    public Book(String title, UUID authorId, String publisher, String isbn) {
+    public Book(String title, Author author, String publisher, String isbn) {
         this.title = title;
-        this.authorId = authorId;
+        this.author = author;
         this.publisher = publisher;
         this.isbn = isbn;
     }
@@ -49,12 +51,12 @@ public class Book {
         this.title = title;
     }
 
-    public UUID getAuthorId() {
-        return authorId;
+    public Author getAuthorId() {
+        return author;
     }
 
-    public void setAuthorId(UUID authorId) {
-        this.authorId = authorId;
+    public void setAuthorId(Author authorId) {
+        this.author = author;
     }
 
     public String getPublisher() {

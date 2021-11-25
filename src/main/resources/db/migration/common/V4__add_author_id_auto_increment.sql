@@ -1,0 +1,1 @@
+alter table author change id id BIGINT auto_increment;

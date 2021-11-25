@@ -44,14 +44,14 @@ public class DataInitializer implements CommandLineRunner {
 
             Book bookDDD = new Book(
                     "Domain Driven Design",
-                    author1.getId(),
+                    author1,
                     "RandomHouse",
                     "123");
             bookRepository.save(bookDDD);
 
             Book bookSIA = new Book(
                     "Spring In Action",
-                    author2.getId(),
+                    author2,
                     "O'Reilly",
                     "456");
             bookRepository.save(bookSIA);

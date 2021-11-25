@@ -1,5 +1,7 @@
 package guru.ysy.sdjpaintro;
 
+import guru.ysy.sdjpaintro.domain.Author;
+import guru.ysy.sdjpaintro.domain.Book;
 import guru.ysy.sdjpaintro.repositories.AuthorRepository;
 import guru.ysy.sdjpaintro.repositories.BookRepository;
 import org.junit.jupiter.api.Test;
@@ -26,6 +28,24 @@ public class MySQLIntegrationTest {
     @Autowired
     AuthorRepository authorRepository;
 
+    @Test
+    void testBookUuid() {
+        Book book = bookRepository.save(new Book());
+        assertThat(book).isNotNull();
+        assertThat(book.getId()).isNotNull();
+
+        Book fetchedBook = bookRepository.getById(book.getId());
+        assertThat(fetchedBook).isNotNull();
+    }
+    @Test
+    void testAuthorUuid() {
+        Author author = authorRepository.save(new Author());
+        assertThat(author).isNotNull();
+        assertThat(author.getId()).isNotNull();
+
+        Author fetchedAuthor = authorRepository.getById(author.getId());
+        assertThat(fetchedAuthor).isNotNull();
+    }
     @Test
     void testMySQL() {
         long count1 = bookRepository.count();

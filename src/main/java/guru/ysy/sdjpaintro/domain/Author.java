@@ -1,9 +1,9 @@
 package guru.ysy.sdjpaintro.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.util.UUID;
 
 /**
  * Created by zhenrui on 2021/11/22 10:21
@@ -12,8 +12,10 @@ import javax.persistence.Id;
 public class Author {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name="uuid2", strategy = "uuid2")
+    @Column(columnDefinition = "BINARY(16)", updatable = false,nullable = false)
+    private UUID id;
 
     private String firstName;
     private String lastName;
@@ -27,11 +29,11 @@ public class Author {
         this.lastName = lastName;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

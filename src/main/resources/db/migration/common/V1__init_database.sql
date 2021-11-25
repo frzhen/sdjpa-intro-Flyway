@@ -1,7 +1,7 @@
 drop table if exists book;
 drop table if exists hibernate_sequence;
 create table book (
-                      id bigint not null,
+                      id BINARY(16) not null,
                       isbn varchar(255),
                       publisher varchar(255),
                       title varchar(255),

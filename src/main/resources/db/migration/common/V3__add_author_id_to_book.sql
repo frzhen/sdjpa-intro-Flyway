@@ -1,1 +1,1 @@
-alter table book add author_id BIGINT;
+alter table book add author_id BINARY(16);
